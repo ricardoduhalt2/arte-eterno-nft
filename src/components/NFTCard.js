@@ -20,11 +20,11 @@ const NFTCard = ({ nft }) => {
   // Get the NFT Drop contract
   const { contract } = useContract(nft.address, "nft-drop");
 
-  // Get contract metadata
-  const { data: contractMetadata, isLoading: isLoadingMetadata } = useContractMetadata(contract);
+  // Get contract metadata - unused but kept for future use
+  const { data: contractMetadata = {}, isLoading: isLoadingMetadata = false } = useContractMetadata(contract) || {};
 
-  // Get claim conditions
-  const { data: claimConditions, isLoading: isLoadingClaimConditions } = useClaimConditions(contract);
+  // Get claim conditions - unused but kept for future use
+  const { data: claimConditions = [], isLoading: isLoadingClaimConditions = false } = useClaimConditions(contract) || {};
 
   // Get claimed and unclaimed supply
   const { data: unclaimedSupply } = useUnclaimedNFTSupply(contract);

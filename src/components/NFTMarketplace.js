@@ -151,6 +151,8 @@ const NFTMarketplace = () => {
     };
 
     fetchNFTData();
+    // NFTS is intentionally omitted from the dependency array as it's a constant
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
 
   if (!address) {
