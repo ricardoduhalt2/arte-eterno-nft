@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Direct Carousel Test</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: white;
+    }
+    
+    h1 {
+      text-align: center;
+      color: #9333ea;
+      margin-bottom: 30px;
+    }
+    
+    .carousel-container {
+      position: relative;
+      height: 300px;
+      overflow: hidden;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0 50px rgba(147, 51, 234, 0.3);
+      margin: 0 auto;
+      max-width: 800px;
+    }
+    
+    .carousel {
+      display: flex;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      animation: scroll 20s linear infinite;
+    }
+    
+    .carousel-item {
+      flex: 0 0 250px;
+      height: 80%;
+      margin: 30px 10px 0;
+      border-radius: 8px;
+      position: relative;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .item-title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 15px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      color: white;
+      font-weight: 600;
+      text-align: center;
+    }
+    
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-2080px); /* 260px * 8 items */
+      }
+    }
+    
+    .instructions {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      line-height: 1.6;
+    }
+    
+    .instructions h2 {
+      color: #9333ea;
+      margin-top: 0;
+    }
+    
+    .instructions code {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <h1>Direct Carousel Test</h1>
+  
+  <div class="carousel-container">
+    <div class="carousel">
+      <!-- First set of items -->
+      <div class="carousel-item" style="background-color: #9333ea;">
+        <div class="item-title">NFT 1</div>
+      </div>
+      <div class="carousel-item" style="background-color: #4f46e5;">
+        <div class="item-title">NFT 2</div>
+      </div>
+      <div class="carousel-item" style="background-color: #8b5cf6;">
+        <div class="item-title">NFT 3</div>
+      </div>
+      <div class="carousel-item" style="background-color: #6366f1;">
+        <div class="item-title">NFT 4</div>
+      </div>
+      <div class="carousel-item" style="background-color: #a855f7;">
+        <div class="item-title">NFT 5</div>
+      </div>
+      <div class="carousel-item" style="background-color: #7c3aed;">
+        <div class="item-title">NFT 6</div>
+      </div>
+      <div class="carousel-item" style="background-color: #6d28d9;">
+        <div class="item-title">NFT 7</div>
+      </div>
+      <div class="carousel-item" style="background-color: #5b21b6;">
+        <div class="item-title">NFT 8</div>
+      </div>
+      
+      <!-- Duplicate set for continuous scrolling -->
+      <div class="carousel-item" style="background-color: #9333ea;">
+        <div class="item-title">NFT 1</div>
+      </div>
+      <div class="carousel-item" style="background-color: #4f46e5;">
+        <div class="item-title">NFT 2</div>
+      </div>
+      <div class="carousel-item" style="background-color: #8b5cf6;">
+        <div class="item-title">NFT 3</div>
+      </div>
+      <div class="carousel-item" style="background-color: #6366f1;">
+        <div class="item-title">NFT 4</div>
+      </div>
+      <div class="carousel-item" style="background-color: #a855f7;">
+        <div class="item-title">NFT 5</div>
+      </div>
+      <div class="carousel-item" style="background-color: #7c3aed;">
+        <div class="item-title">NFT 6</div>
+      </div>
+      <div class="carousel-item" style="background-color: #6d28d9;">
+        <div class="item-title">NFT 7</div>
+      </div>
+      <div class="carousel-item" style="background-color: #5b21b6;">
+        <div class="item-title">NFT 8</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="instructions">
+    <h2>Instrucciones para probar</h2>
+    <p>Este archivo HTML es independiente y no requiere ejecutar la aplicación React. Para probarlo:</p>
+    <ol>
+      <li>Abre este archivo directamente en tu navegador (doble clic en el archivo)</li>
+      <li>Si ves el carrusel animado funcionando correctamente aquí pero no en la aplicación React, el problema podría estar relacionado con:</li>
+      <ul>
+        <li>Conflictos de CSS en la aplicación principal</li>
+        <li>Problemas con la carga de imágenes desde IPFS</li>
+        <li>Problemas de rendimiento en la aplicación React</li>
+      </ul>
+      <li>Para limpiar la caché del navegador:</li>
+      <ul>
+        <li>Chrome: <code>Ctrl+Shift+Del</code> (Windows/Linux) o <code>Cmd+Shift+Del</code> (Mac)</li>
+        <li>Firefox: <code>Ctrl+Shift+Del</code> (Windows/Linux) o <code>Cmd+Shift+Del</code> (Mac)</li>
+        <li>Safari: <code>Cmd+Option+E</code></li>
+      </ul>
+      <li>Después de limpiar la caché, reinicia el navegador y vuelve a cargar la aplicación</li>
+    </ol>
+  </div>
+</body>
+</html>

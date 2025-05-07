@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NFT Carousel Test</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: white;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+      background: linear-gradient(90deg, #9333ea, #4f46e5);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .carousel-container {
+      position: relative;
+      height: 300px;
+      overflow: hidden;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0 50px rgba(147, 51, 234, 0.3);
+    }
+    
+    .carousel {
+      display: flex;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      animation: scroll 30s linear infinite;
+    }
+    
+    .carousel-item {
+      flex: 0 0 250px;
+      height: 80%;
+      margin: 30px 10px 0;
+      border-radius: 8px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      border: 2px solid rgba(147, 51, 234, 0.5);
+    }
+    
+    .item-title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 15px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      color: white;
+      font-weight: 600;
+    }
+    
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-1750px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>NFT Carousel Test</h1>
+    
+    <div class="carousel-container">
+      <div class="carousel">
+        <!-- NFT Items -->
+        <div class="carousel-item" style="background-image: url('https://ipfs.io/ipfs/QmfW2F29peaJPKCxYLEjMkFRbeEcRDa3MUFyqoTkjTAYqf/0.jpg')">
+          <div class="item-title">Tides of the Eternal Mind</div>
+        </div>
+        <div class="carousel-item" style="background-image: url('https://ipfs.io/ipfs/QmNcTwgWp3rMW3RxSbeKArNHiSpA3qZmMYv61m7LKHj4N7/0.jpg')">
+          <div class="item-title">Galactic Clean-Up Crew</div>
+        </div>
+        <div class="carousel-item" style="background-image: url('https://ipfs.io/ipfs/QmYpogwdFMRonvU7p26S8JeUcU46TFk6aTBhGyyUEAX8E3/0.jpg')">
+          <div class="item-title">C0mMzoVeRLoAD</div>
+        </div>
+        <div class="carousel-item" style="background-image: url('https://ipfs.io/ipfs/Qmant6X4GE4o7bMDuYDCyGr3wRwUpTejAzBjgDJucWR6H5/0.jpg')">
+          <div class="item-title">Entre la Vida y el Plu00e1stico</div>
+        </div>
+        <div class="carousel-item" style="background-image: url('https://ipfs.io/ipfs/QmV7oRsZvLCW7hjapbYZeSW9FvarxwqStAwrUNEYUXzzjV/0.gif')">
+          <div class="item-title">Bit-Beats Bliss</div>
+        </div>
+        <div class="carousel-item" style="background-image: url('https://ipfs.io/ipfs/QmUDnTLzEhtf1eLT8GSnwVeehRk8sNzhSaHkNqhMe62tMW/0.jpg')">
+          <div class="item-title">I vow to take care of you</div>
+        </div>
+        <div class="carousel-item" style="background-image: url('https://ipfs.io/ipfs/QmVuTVZRZXoqx67LDtz96YQqcjSaLmYq9rPiMi1SHw3H2S/0.jpg')">
+          <div class="item-title">Yo Soy Libertad</div>
+        </div>
+        
+        <!-- Duplicate for continuous scrolling -->
+        <div class="carousel-item" style="background-image: url('https://ipfs.io/ipfs/QmfW2F29peaJPKCxYLEjMkFRbeEcRDa3MUFyqoTkjTAYqf/0.jpg')">
+          <div class="item-title">Tides of the Eternal Mind</div>
+        </div>
+        <div class="carousel-item" style="background-image: url('https://ipfs.io/ipfs/QmNcTwgWp3rMW3RxSbeKArNHiSpA3qZmMYv61m7LKHj4N7/0.jpg')">
+          <div class="item-title">Galactic Clean-Up Crew</div>
+        </div>
+        <div class="carousel-item" style="background-image: url('https://ipfs.io/ipfs/QmYpogwdFMRonvU7p26S8JeUcU46TFk6aTBhGyyUEAX8E3/0.jpg')">
+          <div class="item-title">C0mMzoVeRLoAD</div>
+        </div>
+        <div class="carousel-item" style="background-image: url('https://ipfs.io/ipfs/Qmant6X4GE4o7bMDuYDCyGr3wRwUpTejAzBjgDJucWR6H5/0.jpg')">
+          <div class="item-title">Entre la Vida y el Plu00e1stico</div>
+        </div>
+        <div class="carousel-item" style="background-image: url('https://ipfs.io/ipfs/QmV7oRsZvLCW7hjapbYZeSW9FvarxwqStAwrUNEYUXzzjV/0.gif')">
+          <div class="item-title">Bit-Beats Bliss</div>
+        </div>
+        <div class="carousel-item" style="background-image: url('https://ipfs.io/ipfs/QmUDnTLzEhtf1eLT8GSnwVeehRk8sNzhSaHkNqhMe62tMW/0.jpg')">
+          <div class="item-title">I vow to take care of you</div>
+        </div>
+        <div class="carousel-item" style="background-image: url('https://ipfs.io/ipfs/QmVuTVZRZXoqx67LDtz96YQqcjSaLmYq9rPiMi1SHw3H2S/0.jpg')">
+          <div class="item-title">Yo Soy Libertad</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

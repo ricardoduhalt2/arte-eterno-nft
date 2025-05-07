@@ -1,0 +1,20 @@
+{
+  "short_name": "Arte Eterno",
+  "name": "Arte Eterno: Museo de Arte contemporaneo (MACQ)",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "https://petgascoin.com/wp-content/uploads/2025/05/Unlockable-Content-Agency.png",
+      "type": "image/png",
+      "sizes": "192x192 512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

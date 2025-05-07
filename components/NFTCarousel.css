@@ -1,0 +1,241 @@
+/* NFT Carousel Styles */
+.nft-animation-container {
+  margin-top: 30px;
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 50px rgba(147, 51, 234, 0.3);
+}
+
+/* Logo Animation */
+.logo-animation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.logo-pulse {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #9333ea, #4f46e5);
+  opacity: 0.9;
+  box-shadow: 0 0 30px rgba(147, 51, 234, 0.6);
+  animation: pulse 2s infinite ease-in-out;
+  position: relative;
+  will-change: transform, box-shadow; /* Optimizar rendimiento */
+}
+
+.logo-pulse::before, .logo-pulse::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #9333ea, #4f46e5);
+  opacity: 0.5;
+  z-index: -1;
+  will-change: transform, opacity; /* Optimizar rendimiento */
+}
+
+.logo-pulse::before {
+  animation: pulse-ring 2s 0.25s infinite ease-out;
+}
+
+.logo-pulse::after {
+  animation: pulse-ring 2s 0.5s infinite ease-out;
+}
+
+.logo-text {
+  margin-top: 20px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  background: linear-gradient(90deg, #ffffff, #9333ea);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glow 2s infinite alternate;
+  text-shadow: 0 0 10px rgba(147, 51, 234, 0.5);
+  will-change: text-shadow; /* Optimizar rendimiento */
+}
+
+.logo-subtitle {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  animation: fadeInOut 3s infinite alternate;
+  will-change: opacity; /* Optimizar rendimiento */
+}
+
+/* NFT Carousel */
+.nft-carousel {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4000px; /* Fixed width to ensure animation works */
+  height: 100%;
+  animation: carousel 30s linear infinite;
+  will-change: transform; /* Optimize animation performance */
+  transform: translateZ(0); /* Forzar aceleración por hardware */
+  backface-visibility: hidden; /* Mejorar rendimiento */
+  perspective: 1000px; /* Mejorar rendimiento */
+}
+
+/* Pausa la animación cuando el usuario pasa el mouse por encima */
+.nft-animation-container:hover .nft-carousel {
+  animation-play-state: paused;
+}
+
+.carousel-item {
+  flex: 0 0 250px;
+  height: 80%;
+  margin: 30px 10px 0;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  border: 2px solid rgba(147, 51, 234, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform, box-shadow; /* Optimizar rendimiento */
+}
+
+/* Efecto hover para los elementos del carrusel */
+.carousel-item:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(147, 51, 234, 0.4);
+  z-index: 5;
+}
+
+.carousel-item-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 15px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: white;
+  font-weight: 600;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.carousel-item:hover .carousel-item-overlay {
+  opacity: 1;
+}
+
+/* Animations */
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(147, 51, 234, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 20px rgba(147, 51, 234, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(147, 51, 234, 0);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  80%, 100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #9333ea, 0 0 20px #9333ea;
+  }
+  to {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #9333ea, 0 0 40px #9333ea;
+  }
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes carousel {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-2000px); /* Half of the total width */
+  }
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .nft-animation-container {
+    height: 250px;
+  }
+  
+  .logo-pulse {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .logo-text {
+    font-size: 1.4rem;
+  }
+  
+  .carousel-item {
+    flex: 0 0 200px;
+  }
+  
+  @keyframes carousel {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-1600px); /* Ajustado para tamaños más pequeños */
+    }
+  }
+}
+
+/* Estilos para navegadores específicos */
+@supports (-webkit-overflow-scrolling: touch) {
+  /* Estilos específicos para iOS */
+  .nft-carousel {
+    -webkit-transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+  }
+}
+
+/* Optimizaciones para navegadores basados en Chromium */
+@supports (-webkit-appearance:none) {
+  .nft-carousel {
+    transform: translate3d(0, 0, 0);
+  }
+}
