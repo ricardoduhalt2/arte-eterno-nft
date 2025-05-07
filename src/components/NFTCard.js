@@ -14,7 +14,7 @@ import './NFTCard.css';
 
 const NFTCard = ({ nft }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [claimQuantity] = useState(1);
+  const [claimQuantity, setClaimQuantity] = useState(1);
   const [isClaiming, setIsClaiming] = useState(false);
 
   // Get the NFT Drop contract
@@ -24,14 +24,14 @@ const NFTCard = ({ nft }) => {
   // const { data: contractMetadata = {}, isLoading: isLoadingMetadata = false } = useContractMetadata(contract) || {}; // Commented out as variables are unused
 
   // Get claim conditions - unused but kept for future use
-  const { data: claimConditions = [], isLoading: isLoadingClaimConditions = false } = useClaimConditions(contract) || {};
+  // const { data: claimConditions = [], isLoading: isLoadingClaimConditions = false } = useClaimConditions(contract) || {}; // Commented out as unused{}; // Commented out as unused
 
   // Get claimed and unclaimed supply
   const { data: unclaimedSupply } = useUnclaimedNFTSupply(contract);
   const { data: claimedSupply } = useClaimedNFTSupply(contract);
 
   // Get the active claim condition
-  const { data: activeClaimCondition } = useActiveClaimConditionForWallet(contract, undefined, claimQuantity);
+  const { data: activeClaimCondition } = useActiveClaimConditionForWallet(contract, undefined);
 
   // Check if user is eligible to claim
   const { 
