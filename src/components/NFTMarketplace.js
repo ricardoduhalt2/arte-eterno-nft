@@ -151,7 +151,7 @@ const NFTMarketplace = () => {
     };
 
     fetchNFTData();
-  }, [address, NFTS]);  // Added NFTS to the dependency array
+  }, [address, NFTS]);  // NFTS is included in the dependency array
 
   if (!address) {
     return (

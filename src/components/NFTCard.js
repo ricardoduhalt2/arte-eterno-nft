@@ -22,6 +22,7 @@ const NFTCard = ({ nft }) => {
   const { data: claimedSupply } = useClaimedNFTSupply(contract);
 
   // Get the active claim condition
+  // eslint-disable-next-line no-unused-vars
   const { data: activeClaimCondition } = useActiveClaimConditionForWallet(contract, undefined);
 
   // Check if user is eligible to claim
