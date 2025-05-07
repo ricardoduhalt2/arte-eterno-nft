@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 
-module.exports = function override(config) {
+module.exports = function override(config, env) {
   // Add fallbacks for Node.js core modules
   config.resolve.fallback = {
     ...config.resolve.fallback,
@@ -28,6 +28,15 @@ module.exports = function override(config) {
       process: 'process',
     }),
   ];
-
+  // Update webpack-dev-server configuration to use setupMiddlewares instead of deprecated options
+  if (env === 'development') {
+    config.devServer = {
+      ...config.devServer,
+      setupMiddlewares: (middlewares, devServer) => {
+        // Your custom middleware setup can go here if needed
+        return middlewares;
+      }
+    };
+  }
   return config;
 };

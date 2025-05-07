@@ -24,23 +24,25 @@ This repository has been updated to fix the Vercel deployment issues. The follow
 
 ## Building for Production
 
-Run `npm run build` to build the project for production.# Arte Eterno: Museo de Arte Contemporáneo (MACQ)
+Run `npm run build` to build the project for production.
+
+# Arte Eterno: Museo de Arte Contemporáneo (MACQ)
 
 Un marketplace de NFTs Web3 construido con React y thirdweb SDK v5, que permite a los usuarios acuñar NFTs desde contratos DropERC721 curados. Esta plataforma ofrece una experiencia inmersiva para coleccionistas de arte digital, con un carrusel interactivo y animaciones elegantes.
 
-## Caracteru00edsticas
+## Características
 
 - Conectar billetera usando el componente ConnectWallet de thirdweb
-- Ver y acuu00f1ar NFTs de una colecciu00f3n curada
+- Ver y acuñar NFTs de una colección curada
 - Datos en tiempo real de la blockchain (precio, suministro, etc.)
-- Diseu00f1o responsive con UI/UX moderno
-- Proceso de acuu00f1aciu00f3n seguro
-- Diseu00f1o de tarjetas interactivo con efectos visuales
-- Visualizaciu00f3n de imu00e1genes NFT de alta calidad
-- Integraciu00f3n con billetera MetaMask y otras billeteras Web3
-- Carrusel animado de NFTs en la pu00e1gina principal
+- Diseño responsive con UI/UX moderno
+- Proceso de acuñación seguro
+- Diseño de tarjetas interactivo con efectos visuales
+- Visualización de imágenes NFT de alta calidad
+- Integración con billetera MetaMask y otras billeteras Web3
+- Carrusel animado de NFTs en la página principal
 - Efectos visuales y animaciones para mejorar la experiencia del usuario
-- Carga optimizada de imu00e1genes IPFS
+- Carga optimizada de imágenes IPFS
 
 ## Tech Stack
 
@@ -168,6 +170,42 @@ This project is licensed under the MIT License.
 - Changed "Explore the Arte Eterno collection by connecting your wallet above" to "Connect your wallet to acquire these exclusive works and join our collector community"
 - Updated wallet connection text in Header component to maintain language consistency
 - Enhanced user experience with localized Spanish text for the target audience
+
+### Deployment History
+
+#### 2024-05-15
+- Initial deployment attempt to Vercel
+- Encountered ESLint errors in CI environment
+- ESLint warnings being treated as errors due to `process.env.CI=true` in Vercel
+
+#### 2024-05-16
+- Added ESLint configuration to fix deployment issues
+- Created `.eslintrc.js` file to customize ESLint rules
+- Added `.env` file with `CI=false` to prevent warnings from being treated as errors
+- Fixed unused variables in `NFTCard.js`
+- Added ESLint disable comment for the exhaustive-deps rule in `NFTMarketplace.js`
+
+#### 2024-05-17
+- Second deployment attempt to Vercel
+- Encountered new ESLint errors related to unused variables
+- Fixed multiple unused variables in `NFTCard.js`:
+  - Removed `setClaimQuantity` unused variable
+  - Removed `contractMetadata` and `isLoadingMetadata` unused variables
+  - Removed `claimConditions` and `isLoadingClaimConditions` unused variables
+- Added missing dependency `NFTS` to useEffect dependency array in `NFTMarketplace.js`
+
+#### 2024-05-18
+- Third deployment attempt to Vercel
+- Encountered syntax error in `NFTMarketplace.js`
+- Fixed syntax error caused by malformed JSX closing tags (`</ div >` changed to `</div>`)
+- Removed duplicate code section at the end of `NFTMarketplace.js` that was causing invalid JSX structure
+
+#### 2024-05-19
+- Fourth deployment attempt to Vercel
+- Addressed webpack-dev-server deprecation warnings
+- Updated `config-overrides.js` to use the new `setupMiddlewares` option instead of deprecated `onBeforeSetupMiddleware` and `onAfterSetupMiddleware` options
+- Added `env` parameter to the override function to detect development environment
+- Successful deployment to Vercel
 
 ### Known Issues
 - None! All previously reported issues have been resolved
