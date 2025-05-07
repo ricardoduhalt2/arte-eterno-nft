@@ -14,14 +14,14 @@ import './NFTCard.css';
 
 const NFTCard = ({ nft }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [claimQuantity, setClaimQuantity] = useState(1);
+  const [claimQuantity] = useState(1);
   const [isClaiming, setIsClaiming] = useState(false);
 
   // Get the NFT Drop contract
   const { contract } = useContract(nft.address, "nft-drop");
 
   // Get contract metadata - unused but kept for future use
-  const { data: contractMetadata = {}, isLoading: isLoadingMetadata = false } = useContractMetadata(contract) || {};
+  // const { data: contractMetadata = {}, isLoading: isLoadingMetadata = false } = useContractMetadata(contract) || {}; // Commented out as variables are unused
 
   // Get claim conditions - unused but kept for future use
   const { data: claimConditions = [], isLoading: isLoadingClaimConditions = false } = useClaimConditions(contract) || {};
