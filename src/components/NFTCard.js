@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { 
   useContract, 
-  useContractMetadata,
-  useClaimConditions,
-  useActiveClaimConditionForWallet,
-  useClaimIneligibilityReasons,
   useUnclaimedNFTSupply,
-  useClaimedNFTSupply
+  useClaimedNFTSupply,
+  useActiveClaimConditionForWallet,
+  useClaimIneligibilityReasons
 } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
 import AccessibleWeb3Button from './AccessibleWeb3Button';
@@ -14,16 +12,10 @@ import './NFTCard.css';
 
 const NFTCard = ({ nft }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const claimQuantity = 1;
   const [isClaiming, setIsClaiming] = useState(false);
 
   // Get the NFT Drop contract
   const { contract } = useContract(nft.address, "nft-drop");
-
-  // Contract metadata and claim conditions hooks are commented out as variables are unused
-  // If needed in the future, uncomment the following lines and ensure variables are used:
-  // const { data: contractMetadata, isLoading: isLoadingMetadata } = useContractMetadata(contract);
-  // const { data: claimConditions, isLoading: isLoadingClaimConditions } = useClaimConditions(contract);
 
   // Get claimed and unclaimed supply
   const { data: unclaimedSupply } = useUnclaimedNFTSupply(contract);
@@ -39,7 +31,7 @@ const NFTCard = ({ nft }) => {
   } = useClaimIneligibilityReasons(
     contract,
     {
-      quantity: claimQuantity,
+      quantity: 1, // Fixed claim quantity
     },
   );
 
@@ -103,7 +95,7 @@ const NFTCard = ({ nft }) => {
             action={async (contract) => {
               setIsClaiming(true);
               try {
-                await contract.erc721.claim(claimQuantity);
+                await contract.erc721.claim(1); // Fixed claim quantity
                 alert("Successfully minted NFT!");
               } catch (err) {
                 console.error("Failed to mint NFT", err);

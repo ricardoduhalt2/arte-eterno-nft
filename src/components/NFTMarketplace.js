@@ -151,7 +151,7 @@ const NFTMarketplace = () => {
     };
 
     fetchNFTData();
-  }, [address, NFTS]);
+  }, [address]);  // Removed NFTS from dependencies as it's defined in the component and doesn't change
 
   if (!address) {
     return (
@@ -198,6 +198,15 @@ const NFTMarketplace = () => {
       <NFTCarousel nfts={nfts} />
 
       <div className="nft-grid">
+        {nfts.map((nft, index) => (
+          <NFTCard key={index} nft={nft} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default NFTMarketplace;
         {nfts.map((nft, index) => (
           <NFTCard key={index} nft={nft} />
         ))}
