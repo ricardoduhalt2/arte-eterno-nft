@@ -134,6 +134,15 @@ const DROPS = [
     claimPrice: 0.0,
     supply: 0,
     supplyClaimed: 0
+  },
+  {
+    name: 'C.H.I.D.O.',
+    contract: '0xF9a1a2A374F8D517f08C37ED08743f18dEd33682',
+    tokenId: 0,
+    tokenURI: 'ipfs://QmVuDHnSdURagBEFWkYjmVYMEsCgkDVDhAAKTXZLTGUNBD/0',
+    claimPrice: 0.0,
+    supply: 1,
+    supplyClaimed: 1
   }
 ];
 
