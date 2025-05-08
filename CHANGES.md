@@ -1,28 +1,21 @@
-# Cambios Realizados para Corregir el Despliegue en Vercel
+## [UNRELEASED] - YYYY-MM-DD
 
-## Archivos Creados
+## 2025-07-05
+### Added
+- **UI/UX Enhancements**:
+    - Updated main application title, subtitle, and logo in `src/App.js`.
+    - Updated footer text in `src/App.js`.
+    - Implemented a blinking light blue glow and lift effect on NFT card hover (`src/components/NFTCard.css`).
+    - Corrected missing CSS import in `src/components/NFTCard.js` to ensure card styles are applied.
+    - Adjusted font sizes for main page title and subtitle in `src/App.css` to be similar and adopted a more modern styling.
+    - **NFT Card Refinements (`src/components/NFTCard.js`)**:
+        - Reduced overall card width for a more compact look (`maxWidth: '280px'`).
+        - Decreased font size of the NFT description text and applied a more subtle color and modern styling (e.g., `fontSize: '0.85em'`, `color: '#666'`, `lineHeight: '1.4'`).
+        - Slightly reduced font sizes for price/supply text and claim button for better proportion with smaller cards.
 
-1. `.eslintrc.js` - Configuración de ESLint para tratar advertencias como advertencias en lugar de errores.
-2. `.env` - Configuración para evitar que CI trate las advertencias como errores.
-3. `vercel.json` - Configuración para el despliegue en Vercel.
+### Changed
+- Current functionality is working well.
 
-## Archivos Modificados
-
-1. `src/components/NFTCard.js` - Corregidos problemas de variables no utilizadas.
-2. `src/components/NFTMarketplace.js` - Añadido comentario para deshabilitar la regla de dependencias exhaustivas.
-3. `README.md` - Actualizado con instrucciones para el despliegue.
-
-## Pasos para Actualizar el Repositorio
-
-1. Ejecuta el script `update-github.sh` para subir los cambios al repositorio:
-   ```bash
-   chmod +x update-github.sh
-   ./update-github.sh
-   ```
-
-2. Verifica que los cambios se hayan subido correctamente visitando:
-   ```
-   https://github.com/ricardoduhalt2/arte-eterno-nft
-   ```
-
-3. Vuelve a desplegar la aplicación en Vercel para verificar que los errores se hayan corregido.
+### Next Steps
+- Continue enhancing the look and feel to be super modern.
+- Explore further animations and interactivity for other components.

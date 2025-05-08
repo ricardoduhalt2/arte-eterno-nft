@@ -17,8 +17,8 @@ const Header = () => {
           />
         </div>
         <div className="title-container">
-          <h1>Unlockable Content Agency Marketplace</h1>
-          <h2>Arte Eterno: Museo de Arte contemporaneo (MACQ)</h2>
+          <h1>NFT Boutique Marketplace</h1>
+          <h2>Arte Eterno Museo de Arte Contemporaneo (MACQ)</h2>
         </div>
         <div className="connect-wallet-container">
           <ConnectWallet 

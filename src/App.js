@@ -1,30 +1,31 @@
 import React from 'react';
-import { ThirdwebProvider } from "@thirdweb-dev/react";
-import { Soneium } from "./utils/SoneiumChain";
-import Header from './components/Header';
-import NFTMarketplace from './components/NFTMarketplace';
+import { ThirdwebProvider } from "thirdweb/react"; // Import ThirdwebProvider for v5
+import { client } from './config/thirdwebClient'; // Import the client
+import Gallery from './components/Gallery'; // Import the new Gallery component
 import './App.css';
 
-function App() {
-  // Use a default client ID if the environment variable is not set
-  const clientId = process.env.REACT_APP_THIRDWEB_CLIENT_ID || "a37f843ccef648163abc82ab025e7cf7";
+// The soneiumChain definition is removed as the new components use the centralized one from src/config/thirdwebClient.js
+// The Thirdweb client is initialized within components or imported from a central config for v5.
 
+function App() {
   return (
-    <ThirdwebProvider
-      clientId={clientId}
-      activeChain={Soneium}
-      supportedChains={[Soneium]}
-      dAppMeta={{
-        name: "Unlockable Content Agency Marketplace",
-        description: "Arte Eterno: Museo de Arte contemporaneo (MACQ)",
-        logoUrl: "https://petgascoin.com/wp-content/uploads/2025/05/Unlockable-Content-Agency.png",
-        url: window.location.origin,
-      }}
-      autoConnect={true}
-    >
+    // The old ThirdwebProvider is removed.
+    // If a global v5 provider is needed, it would be from "thirdweb/react".
+    // However, the new components (ConnectButton, ClaimButton, NFTProvider) are passed client/contract directly.
+    // Wrap Gallery with ThirdwebProvider
+    <ThirdwebProvider>
       <div className="App">
-        <Header />
-        <NFTMarketplace />
+        <header className="App-header">
+          <img src="https://petgascoin.com/wp-content/uploads/2025/05/Unlockable-Content-Agency.png" alt="Unlockable Content Agency Logo" style={{ /* Consider adding some basic styling if needed, e.g., height or width */ }} />
+          <h1>NFT Boutique Marketplace</h1>
+          <p>Arte Eterno Museo de Arte Contemporaneo (MACQ)</p>
+        </header>
+      <main>
+        <Gallery /> {/* Use the new Gallery component */}
+      </main>
+      <footer>
+        <p>&copy; {new Date().getFullYear()} NFT Boutique Marketplace. All rights reserved.</p>
+      </footer>
       </div>
     </ThirdwebProvider>
   );

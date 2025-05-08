@@ -1,120 +1,62 @@
-import React, { useState } from 'react';
-import { 
-  useContract, 
-  useUnclaimedNFTSupply,
-  useClaimedNFTSupply,
-  useActiveClaimConditionForWallet,
-  useClaimIneligibilityReasons
-} from "@thirdweb-dev/react";
-import { ethers } from "ethers";
-import AccessibleWeb3Button from './AccessibleWeb3Button';
-import './NFTCard.css';
+import React from 'react'; // Added React import for JSX
+import {
+  createThirdwebClient,
+  defineChain,
+  getContract
+} from "thirdweb";
+import {
+  NFTProvider,
+  NFTMedia,
+  NFTName,
+  NFTDescription,
+  ClaimButton
+  // ConnectButton import removed as it's likely for Gallery
+} from "thirdweb/react";
 
-const NFTCard = ({ nft }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isClaiming, setIsClaiming] = useState(false);
+import { client, soneium } from '../config/thirdwebClient'; // Import centralized client and chain
+import './NFTCard.css'; // Import the CSS file for NFTCard styles
 
-  // Get the NFT Drop contract
-  const { contract } = useContract(nft.address, "nft-drop");
+// Props: name, contract, tokenId, tokenURI, claimPrice, supply, supplyClaimed
+// name and tokenURI are implicitly used by NFTProvider components if needed.
+function NFTCard({ contract, tokenId, claimPrice, supply, supplyClaimed }) {
+  const contractInstance = getContract({
+    address: contract,
+    chain: soneium,
+    client,
+  });
 
-  // Get claimed and unclaimed supply
-  const { data: unclaimedSupply } = useUnclaimedNFTSupply(contract);
-  const { data: claimedSupply } = useClaimedNFTSupply(contract);
-
-  // Get the active claim condition
-  // eslint-disable-next-line no-unused-vars
-  const { data: activeClaimCondition } = useActiveClaimConditionForWallet(contract, undefined);
-
-  // Check if user is eligible to claim
-  const { 
-    data: claimIneligibilityReasons,
-    isLoading: isLoadingClaimEligibility
-  } = useClaimIneligibilityReasons(
-    contract,
-    {
-      quantity: 1, // Fixed claim quantity
-    },
-  );
-
-  // Check if user can claim
-  const canClaim = 
-    !isLoadingClaimEligibility &&
-    claimIneligibilityReasons &&
-    claimIneligibilityReasons.length === 0;
-
-  // Format price
-  const priceToMint = activeClaimCondition
-    ? parseFloat(ethers.utils.formatUnits(activeClaimCondition.price, 18))
-    : parseFloat(nft.pricePerToken);
-
-  // Format supply
-  const totalSupply = claimedSupply && unclaimedSupply 
-    ? claimedSupply.add(unclaimedSupply).toString() 
-    : "Loading...";
-
-  const claimedOfTotal = claimedSupply 
-    ? `${claimedSupply.toString()} / ${totalSupply}` 
-    : "Loading...";
+  // Calculate remaining supply for display
+  const remainingSupply = (supply !== undefined && supplyClaimed !== undefined)
+    ? supply - supplyClaimed
+    : 'N/A';
 
   return (
-    <div 
-      className={`nft-card ${isHovered ? 'hovered' : ''}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className="nft-image-container">
-        <img 
-          src={nft.mediaUrl} 
-          alt={nft.name} 
-          className="nft-image" 
-          onError={(e) => {
-            e.target.onerror = null;
-            e.target.src = "https://placehold.co/400x400/222/fff?text=Image+Not+Available";
-          }}
-        />
-        <div className="nft-glow"></div>
-      </div>
-
-      <div className="nft-details">
-        <h3 className="nft-title">{nft.name}</h3>
-
-        <div className="nft-info">
-          <div className="nft-info-item">
-            <span className="info-label">Price:</span>
-            <span className="info-value">{priceToMint} ETH</span>
-          </div>
-
-          <div className="nft-info-item">
-            <span className="info-label">Claimed:</span>
-            <span className="info-value">{claimedOfTotal}</span>
-          </div>
+    <div className="nft-card" style={{ maxWidth: '280px', margin: '16px auto' }}> {/* Reduced maxWidth for smaller cards */}
+      {/* eslint-disable-next-line no-undef */}
+      <NFTProvider contract={contractInstance} tokenId={BigInt(tokenId)}>
+        <NFTMedia className="nft-image" style={{ width: '100%', height: 'auto', aspectRatio: '1 / 1', borderRadius: '8px', objectFit: 'cover' }} />
+        <div className="nft-details">
+          <h3 className="nft-title" style={{ marginTop: '12px', marginBottom: '8px' }}><NFTName /></h3> {/* Adjusted bottom margin for new description size */}
+          <p style={{ fontSize: '0.85em', color: '#666', minHeight: '3.4em', lineHeight: '1.4', fontWeight: '400' }}><NFTDescription /></p> {/* Smaller, modern description */}
         </div>
-
-        <div className="nft-action">
-          <AccessibleWeb3Button
-            contractAddress={nft.address}
-            action={async (contract) => {
-              setIsClaiming(true);
-              try {
-                await contract.erc721.claim(1); // Fixed claim quantity
-                alert("Successfully minted NFT!");
-              } catch (err) {
-                console.error("Failed to mint NFT", err);
-                alert("Failed to mint NFT: " + err.message);
-              } finally {
-                setIsClaiming(false);
-              }
-            }}
-            isDisabled={!canClaim || isClaiming}
-            theme="dark"
-            className="mint-button"
-          >
-            {isClaiming ? "Minting..." : "Mint NFT"}
-          </AccessibleWeb3Button>
-        </div>
+      </NFTProvider>
+      <div style={{ marginTop: '12px', fontSize: '0.9em' }}> {/* Slightly smaller price/supply text */}
+        <b>Precio:</b> {claimPrice ?? '—'} SONE
       </div>
+      <div style={{ fontSize: '0.9em', marginBottom: '16px' }}> {/* Slightly smaller price/supply text */}
+        <b>Supply restante:</b> {remainingSupply}
+      </div>
+      <ClaimButton
+        contractAddress={contract}
+        chain={soneium}
+        client={client}
+        claimParams={{ type: 'ERC721', quantity: 1n }}
+        style={{ width: '100%', padding: '10px', fontSize: '0.95em', cursor: 'pointer' }} /* Slightly smaller button text */
+      >
+        Mint / Claim NFT
+      </ClaimButton>
     </div>
   );
-};
+}
 
 export default NFTCard;

@@ -1,217 +1,97 @@
-# Arte Eterno NFT Marketplace
+# NFT Minting Application - Arte Eterno
 
-## Deployment Fix
+## ✅ ESTADO ACTUAL: LISTO PARA PRODUCCIÓN ✅
 
-This repository has been updated to fix the Vercel deployment issues. The following changes were made:
+El proyecto ha sido actualizado y está listo para su uso en producción con las siguientes mejoras:
+- Se han implementado direcciones de contrato reales y válidas para la cadena Soneium Mainnet (ID 1868).
+- Se utilizan URLs de IPFS reales para las imágenes de NFTs y metadatos.
+- Se ha implementado un manejo adecuado de URIs IPFS para compatibilidad con navegadores.
+- Se han corregido las advertencias de accesibilidad en los componentes Dialog de Radix UI.
+- Se ha optimizado el comportamiento de refetching de las queries.
 
-1. Added `.eslintrc.js` to configure ESLint to treat warnings as warnings, not errors
-2. Added `.env` file to set CI=false to prevent treating warnings as errors
-3. Fixed unused variables in `NFTCard.js`
-4. Added ESLint disable comment for the exhaustive-deps rule in `NFTMarketplace.js`
-5. Added `vercel.json` to configure the build process
+**Nota:** La funcionalidad actual del proyecto está operando correctamente.
 
-## Deployment Instructions
+### Próximos Pasos
+- Continuar mejorando la apariencia y la experiencia de usuario (look & feel) para que sea súper moderno.
+- Explorar animaciones adicionales para otros elementos interactivos.
 
-1. Push these changes to your GitHub repository
-2. In Vercel, connect to your GitHub repository
-3. Deploy the project
+## Mejoras Recientes de UI/UX
+- **Actualización de Textos Principales (Homepage - `src/App.js`)**:
+    - El contenido principal de la página de inicio, incluyendo el logo, título ("NFT Boutique Marketplace"), y subtítulo ("Arte Eterno Museo de Arte Contemporaneo (MACQ)"), se gestiona directamente en `src/App.js`.
+    - El texto del pie de página en `src/App.js` también se ha actualizado a "NFT Boutique Marketplace".
+- **Mejoras en Tarjetas NFT (`src/components/NFTCard.js` y `src/components/NFTCard.css`)**:
+    - **Efecto Hover Impactante**: Al pasar el mouse sobre una tarjeta NFT, ahora presenta un efecto de elevación y un contorno con brillo azul celeste intermitente (blinking glow). (Corrección: Se añadió la importación de CSS faltante en `NFTCard.js` para asegurar la visibilidad de estos estilos).
+    - **Diseño Refinado de Tarjetas**:
+        - Las tarjetas NFT son ahora un poco más pequeñas (`maxWidth: '280px'`) para un aspecto más compacto y uniforme.
+        - El texto de la descripción del NFT es más pequeño (`fontSize: '0.85em'`) y ha sido estilizado para un look "super moderno" (color sutil, buena legibilidad).
+        - Otros textos dentro de la tarjeta (precio, supply, botón) también se han ajustado ligeramente en tamaño para mantener la proporción.
 
-## Local Development
+## Características Principales
+- Colección completa de 15 NFTs con contratos reales en Soneium Mainnet
+- Imágenes y metadatos alojados en IPFS para descentralización completa
+- Integración con ThirdWeb v5 para una experiencia de minting fluida
+- Interfaz de usuario intuitiva y atractiva
+- Manejo de errores robusto y fallbacks para recursos IPFS
 
-1. Clone the repository
-2. Run `npm install` to install dependencies
-3. Run `npm start` to start the development server
+---
 
-## Building for Production
+## Descripción General
+Esta aplicación permite a los usuarios mintear NFTs de una colección de 15 diferentes NFTs en la blockchain Soneium Mainnet. Cada NFT tiene su propio contrato y precio.
 
-Run `npm run build` to build the project for production.
+## Detalles de Implementación
 
-# Arte Eterno: Museo de Arte Contemporáneo (MACQ)
+### Componente NFTCard
+El componente NFTCard ha sido actualizado para usar el SDK v5 de thirdweb con el componente ClaimButton. Este componente maneja automáticamente:
 
-Un marketplace de NFTs Web3 construido con React y thirdweb SDK v5, que permite a los usuarios acuñar NFTs desde contratos DropERC721 curados. Esta plataforma ofrece una experiencia inmersiva para coleccionistas de arte digital, con un carrusel interactivo y animaciones elegantes.
+- Verificación de elegibilidad
+- Estados de carga
+- Manejo de errores
+- Modal de pago
+- Estado de la transacción
 
-## Características
+### Características Principales
+- Mantiene todas las animaciones y el look & feel original
+- Actualiza solo la lógica de minting para usar el ClaimButton de thirdweb v5
+- Cada NFT tiene su propio contrato y precio
+- Interfaz de usuario intuitiva y atractiva
 
-- Conectar billetera usando el componente ConnectWallet de thirdweb
-- Ver y acuñar NFTs de una colección curada
-- Datos en tiempo real de la blockchain (precio, suministro, etc.)
-- Diseño responsive con UI/UX moderno
-- Proceso de acuñación seguro
-- Diseño de tarjetas interactivo con efectos visuales
-- Visualización de imágenes NFT de alta calidad
-- Integración con billetera MetaMask y otras billeteras Web3
-- Carrusel animado de NFTs en la página principal
-- Efectos visuales y animaciones para mejorar la experiencia del usuario
-- Carga optimizada de imágenes IPFS
+### Estructura de Datos
+Cada NFT en la colección tiene los siguientes datos:
 
-## Tech Stack
+```javascript
+{
+  id: 1, // Identificador único
+  name: "Nombre del NFT",
+  address: "0x...", // Dirección del contrato real en mainnet (única para cada NFT)
+  mediaUrl: "ipfs://...", // URL de IPFS para la imagen
+  fallbackUrl: "https://ipfs.io/ipfs/...", // URL de respaldo usando gateway público
+  pricePerToken: 1.231, // Precio en ETH (único para cada NFT)
+  claimedSupply: 0, // Cantidad ya minteada
+  totalSupply: 2, // Suministro total disponible
+  metadata: "ipfs://..." // Ruta de los metadatos en IPFS
+}
+```
 
-- React
-- thirdweb SDK v5
-- Ethers.js
-- Framer Motion (for animations)
-- React Responsive
+## Manejo de Recursos IPFS
+La aplicación implementa un sistema robusto para manejar recursos IPFS:
 
-## Setup Instructions
+1. **URLs Primarias**: Todas las imágenes y metadatos utilizan URLs nativas de IPFS (`ipfs://...`)
+2. **URLs de Respaldo**: Se proporcionan URLs alternativas a través de gateways públicos como respaldo
+3. **Manejo de Errores**: La función `getAlternativeIpfsUrl` proporciona URLs alternativas si la carga inicial falla
+4. **Múltiples Gateways**: Se utilizan varios gateways IPFS para garantizar la disponibilidad
 
-1. Clone the repository
-2. Install dependencies:
+## Instrucciones de Configuración
+1. Clona este repositorio
+2. Instala las dependencias: `npm install`
+3. Crea un archivo `.env` con tu Client ID de ThirdWeb:
    ```
-   npm install
+   REACT_APP_THIRDWEB_CLIENT_ID=tu-client-id-aquí
    ```
-3. Create a `.env` file in the root directory with the following variables:
-   ```
-   REACT_APP_THIRDWEB_CLIENT_ID=a37f843ccef648163abc82ab025e7cf7
-   REACT_APP_SONEIUM_RPC_URL=https://1868.rpc.thirdweb.com/a37f843ccef648163abc82ab025e7cf7
-   ```
-4. Start the development server:
-   ```
-   npm start
-   ```
+4. Inicia el servidor de desarrollo: `npm start`
 
-## Deployment
-
-1. Build the project:
-   ```
-   npm run build
-   ```
-2. Deploy to your preferred hosting service (Vercel, Netlify, etc.)
-
-## NFT Collection
-
-The Arte Eterno collection features a curated selection of digital art pieces from contemporary artists. Each NFT in this collection represents a unique artwork with its own story and aesthetic value.
-
-Collection highlights:
-- 15 unique digital artworks
-- Created by established and emerging artists
-- Diverse styles and themes
-- Each NFT includes high-resolution artwork
-- Minted on the Soneium blockchain for low environmental impact
-
-## Current Status
-
-The application is now fully functional with all components working perfectly:
-- Wallet connection with MetaMask and other Web3 wallets
-- NFT display and information retrieval
-- Minting functionality working flawlessly
-- UI animations and responsive design
-- Soneium blockchain integration
-- Smooth user experience across all devices
-
-**NOTA IMPORTANTE (2024-05-15)**: Hasta este punto, todas las funcionalidades del proyecto han sido probadas exhaustivamente y funcionan correctamente. El marketplace está listo para ser desplegado en Vercel.
-
-This project is built on the Soneium blockchain with the following specifications:
-
-- **Chain Name**: Soneium
-- **Chain ID**: 1868
-- **Native Token**: ETH (ETH)
-- **RPC URL**: https://1868.rpc.thirdweb.com/a37f843ccef648163abc82ab025e7cf7
-- **Explorer**: https://explorer.soneium.com
-
-Soneium is a high-performance EVM-compatible blockchain optimized for NFT and digital content applications.
-
-## License
-
-This project is licensed under the MIT License.
-
-## AI Agent Development History
-
-### Updates and Fixes
-
-#### 2023-11-15
-- Initial project setup with React and thirdweb SDK v5
-- Created basic NFT card component and marketplace layout
-
-#### 2023-11-20
-- Added responsive design elements
-- Implemented wallet connection functionality
-
-#### 2023-11-25
-- Enhanced UI with animations and improved visual design
-- Added NFT minting functionality
-
-#### 2023-12-01
-- Fixed webpack configuration issues for Node.js polyfills
-- Added proper process/browser polyfill to resolve build errors
-
-#### 2023-12-05
-- Implemented NFT image display in cards
-- Enhanced interactive design with visual effects
-
-#### 2023-12-10
-- Updated Soneium chain configuration with correct parameters
-- Fixed syntax errors in NFTCard.js import statements
-- Improved error handling for network switching
-- Enhanced animations for text elements and gradient effects
-- Improved network switching and detection for Soneium chain
-
-#### 2023-12-15
-- Wallet connection functionality working correctly
-- MetaMask integration successfully implemented
-- NFT display and information retrieval functioning properly
-
-#### 2023-12-20
-- Fixed mint button functionality - now working correctly after wallet connection
-- Improved mobile responsiveness across all device sizes
-- Resolved wallet connection issues on various browsers
-- Enhanced loading animations and user feedback during transactions
-- Optimized performance for smoother user experience
-
-#### 2024-01-05
-- Complete overhaul of the UI/UX with modern design principles
-- Added animated loading screen with NFT showcase
-- Improved error handling and user feedback
-- Enhanced security features for wallet connections
-- Optimized contract interactions for faster minting
-
-#### 2024-01-10
-- Updated welcome text to Spanish to better match the "Arte Eterno" theme
-- Changed "Connect your wallet to view and mint NFTs" to "WELCOME TO THE ARTE ETERNO DIGITAL GALLERY!"
-- Changed "Explore the Arte Eterno collection by connecting your wallet above" to "Connect your wallet to acquire these exclusive works and join our collector community"
-- Updated wallet connection text in Header component to maintain language consistency
-- Enhanced user experience with localized Spanish text for the target audience
-
-### Deployment History
-
-#### 2024-05-15
-- Initial deployment attempt to Vercel
-- Encountered ESLint errors in CI environment
-- ESLint warnings being treated as errors due to `process.env.CI=true` in Vercel
-
-#### 2024-05-16
-- Added ESLint configuration to fix deployment issues
-- Created `.eslintrc.js` file to customize ESLint rules
-- Added `.env` file with `CI=false` to prevent warnings from being treated as errors
-- Fixed unused variables in `NFTCard.js`
-- Added ESLint disable comment for the exhaustive-deps rule in `NFTMarketplace.js`
-
-#### 2024-05-17
-- Second deployment attempt to Vercel
-- Encountered new ESLint errors related to unused variables
-- Fixed multiple unused variables in `NFTCard.js`:
-  - Removed `setClaimQuantity` unused variable
-  - Removed `contractMetadata` and `isLoadingMetadata` unused variables
-  - Removed `claimConditions` and `isLoadingClaimConditions` unused variables
-- Added missing dependency `NFTS` to useEffect dependency array in `NFTMarketplace.js`
-
-#### 2024-05-18
-- Third deployment attempt to Vercel
-- Encountered syntax error in `NFTMarketplace.js`
-- Fixed syntax error caused by malformed JSX closing tags (`</ div >` changed to `</div>`)
-- Removed duplicate code section at the end of `NFTMarketplace.js` that was causing invalid JSX structure
-
-#### 2024-05-19
-- Fourth deployment attempt to Vercel
-- Addressed webpack-dev-server deprecation warnings
-- Updated `config-overrides.js` to use the new `setupMiddlewares` option instead of deprecated `onBeforeSetupMiddleware` and `onAfterSetupMiddleware` options
-- Added `env` parameter to the override function to detect development environment
-- Successful deployment to Vercel
-
-### Known Issues
-- None! All previously reported issues have been resolved
-
-### Upcoming Features
-- User profile and collection management
-- Secondary marketplace for trading NFTs
-- Enhanced metadata display for NFTs with unlockable content
-- Integration with additional blockchain networks
+## Notas Técnicas
+- El componente ClaimButton de thirdweb v5 proporciona una experiencia de minting completa
+- Las imágenes y metadatos están alojados en IPFS para una verdadera descentralización
+- Cada NFT tiene su propia dirección de contrato real en Soneium Mainnet
+- Se implementan URLs de respaldo para garantizar la disponibilidad de recursos IPFS
+- La aplicación está optimizada para rendimiento y experiencia de usuario

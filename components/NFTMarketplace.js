@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useAddress } from "@thirdweb-dev/react";
 import NFTCard from './NFTCard';
 import WelcomePage from './WelcomePage';
+import { globalErrorHandler } from '../utils/errorHandler';
+import { ipfsToHttp, preloadIpfsImage } from '../utils/ipfsUtils';
 import './NFTMarketplace.css';
 
 const NFTMarketplace = () => {
@@ -34,7 +36,7 @@ const NFTMarketplace = () => {
     if (!address) {
       NFTS.forEach(nft => {
         const img = new Image();
-        img.src = nft.mediaUri.replace('ipfs://', 'https://ipfs.io/ipfs/');
+        img.src = ipfsToHttp(nft.mediaUri);
       });
     }
 
@@ -49,9 +51,9 @@ const NFTMarketplace = () => {
         setLoading(true);
         // Process NFT data with additional contract info
         const processedNfts = NFTS.map(nft => {
-          // Convert IPFS URLs to HTTP URLs
-          const mediaUrl = nft.mediaUri.replace('ipfs://', 'https://ipfs.io/ipfs/');
-          const tokenUrl = nft.tokenUri.replace('ipfs://', 'https://ipfs.io/ipfs/');
+          // Convert IPFS URLs to HTTP URLs using our utility
+          const mediaUrl = ipfsToHttp(nft.mediaUri);
+          const tokenUrl = ipfsToHttp(nft.tokenUri);
 
           return {
             ...nft,
@@ -64,7 +66,8 @@ const NFTMarketplace = () => {
         setLoading(false);
       } catch (err) {
         console.error("Error fetching NFT data:", err);
-        setError("Failed to load NFT data. Please try again later.");
+        const errorInfo = globalErrorHandler(err);
+        setError(errorInfo.message);
         setLoading(false);
       }
     };
