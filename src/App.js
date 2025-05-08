@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThirdwebProvider } from "thirdweb/react"; // Import ThirdwebProvider for v5
-import { client } from './config/thirdwebClient'; // Import the client
+// import { client } from './config/thirdwebClient'; // Client import removed as it's unused in this file
 import Gallery from './components/Gallery'; // Import the new Gallery component
 import './App.css';
 

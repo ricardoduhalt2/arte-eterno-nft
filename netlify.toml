@@ -1,0 +1,15 @@
+# Netlify configuration file
+
+# Build settings
+[build]
+  command = "npm run build" # or "yarn build" if you use yarn
+  publish = "build"         # The directory where your built site is located
+  environment = { NODE_VERSION = "18" } # Specify Node.js version if needed, common for React apps
+
+# Redirects and rewrites rules
+# This rule is important for Single Page Applications (SPAs) like React
+# It ensures that all paths are served by index.html, allowing client-side routing to work.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

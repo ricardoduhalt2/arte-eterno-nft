@@ -12,6 +12,10 @@
         - Reduced overall card width for a more compact look (`maxWidth: '280px'`).
         - Decreased font size of the NFT description text and applied a more subtle color and modern styling (e.g., `fontSize: '0.85em'`, `color: '#666'`, `lineHeight: '1.4'`).
         - Slightly reduced font sizes for price/supply text and claim button for better proportion with smaller cards.
+- **Deployment Preparation**:
+    - Added `netlify.toml` for configuring Netlify builds (build command, publish directory, SPA redirects).
+    - Fixed an ESLint warning (unused variable) in `src/App.js` that was likely causing Netlify build failures.
+
 
 ### Changed
 - Current functionality is working well.

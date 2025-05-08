@@ -89,6 +89,16 @@ La aplicación implementa un sistema robusto para manejar recursos IPFS:
    ```
 4. Inicia el servidor de desarrollo: `npm start`
 
+## Despliegue en Netlify
+El proyecto ha sido preparado para un despliegue sencillo en Netlify:
+1.  Se ha añadido un archivo `netlify.toml` que configura:
+    *   Comando de build: `npm run build`
+    *   Directorio de publicación: `build`
+    *   Redirección para SPAs: `/* /index.html 200` (para que el enrutamiento del lado del cliente funcione correctamente).
+    *   Versión de Node.js: `18`.
+2.  Se corrigió una advertencia de ESLint (variable no utilizada en `src/App.js`) que probablemente causaba fallos en el build de Netlify.
+3.  **Importante**: Al desplegar en Netlify, asegúrate de configurar las variables de entorno necesarias (ej. `REACT_APP_THIRDWEB_CLIENT_ID`) en la configuración de tu sitio en Netlify (Build & deploy -> Environment).
+
 ## Notas Técnicas
 - El componente ClaimButton de thirdweb v5 proporciona una experiencia de minting completa
 - Las imágenes y metadatos están alojados en IPFS para una verdadera descentralización
